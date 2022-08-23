@@ -1,5 +1,6 @@
 package com.loja;
 
+// Enum TipoPeca. Este enum serve para guardar os possíveis valores para os campos TipoPeca
 public enum TipoPeca {
     GERAL("Peça geral"),
     HD ("HD"),

@@ -3,6 +3,7 @@ package com.loja.pecas;
 import com.loja.Peca;
 import com.loja.TipoPeca;
 
+// Objeto Memoria. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class Memoria extends Peca {
     private int armazenamento;
     private float velocidade;

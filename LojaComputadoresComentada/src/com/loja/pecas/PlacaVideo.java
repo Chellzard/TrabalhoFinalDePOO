@@ -4,6 +4,7 @@ import com.loja.Peca;
 import com.loja.TipoPeca;
 import org.omg.CORBA.TIMEOUT;
 
+// Objeto PlacaVideo. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class PlacaVideo extends Peca {
     private int memoria;
     private String dRam;

@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
+// Código da tela principal
 public class AplicacaoUI {
     private JPanel rootPanel;
     private JTable tablePecas;
@@ -35,20 +36,28 @@ public class AplicacaoUI {
     private JLabel labelDescricao;
     private int rowClicked = -1;
 
+    // Lista de peças
     private List<Peca> pecas = new ArrayList<Peca>();
 
+    // Dados da lista de peças para usar na tabela
     private Object[][] dataTablePecas = {};
+
+    // Colunas da tabela
     private String[] columnsTablePeca = new String[] {"Código", "Nome", "Marca", "Estoque", "Valor", "Tipo"};
 
+    // Valroes do comboBox TipoPeca. É pego os valores em um array do Enum TipoPeca
     private String[] comboBoxValues = Arrays.stream(TipoPeca.values()).map(Object::toString).toArray(String[]::new);
 
+    /* Método construtor
+        Aqui se faz as devidas alterações e criações (como da tabela por exemplo) ao criar a tela principal e também define os eventos
+    */
     public AplicacaoUI() {
         labelInvalidValues.setVisible(false);
         textFieldCodigo.setText("0");
         comboBoxTipo.setModel(new DefaultComboBoxModel(comboBoxValues));
         comboBoxTipo.setSelectedIndex(0);
         createTablePecas();
-        changeTablePecasPanel();
+        tablePecasPanel.setMaximumSize(new Dimension(100,100));
         tablePecas.setDefaultEditor(Object.class, null);        // Código serve para não permitir alteração dos dados direto na tabela
         buttonSalvar.addActionListener(new ActionListener() {
             @Override
@@ -93,16 +102,19 @@ public class AplicacaoUI {
         });
     }
 
+    // Método que é chamado para instanciar certos componentes da Tela
     private void createUIComponents() {
         rootPanel = new JPanel();
         tablePecasPanel = new JPanel();
         comboBoxTipo = new JComboBox();
     }
 
+    // Retorna o Painel principal da tela. O método main o usa para fazer as devidas alterações
     public JPanel getRootPanel() {
         return rootPanel;
     }
 
+    // Cria a tabela de peças e faz as devidas modificações
     private void createTablePecas() {
         tablePecas.setModel(new DefaultTableModel(dataTablePecas, columnsTablePeca));
         TableColumnModel columns = tablePecas.getColumnModel();
@@ -110,10 +122,10 @@ public class AplicacaoUI {
         tablePecas.setMinimumSize(new Dimension(100, 100));
     }
 
-    private void changeTablePecasPanel() {
-        tablePecasPanel.setMaximumSize(new Dimension(100,100));
-    }
-
+    /* Método que é chamado ao clicar no botão Salvar.
+        Este método faz verificações para saber se é para salvar ou editar um certo item e logo após altera a tabela
+        com os novos dados
+    */
     private void buttonSalvarClick() {
         try {       // Os códigos dentro do try se derem algum erro, pula para o catch
             int codigo = Integer.parseInt(textFieldCodigo.getText());
@@ -144,11 +156,13 @@ public class AplicacaoUI {
         }
     }
 
+    // Método que é chamado ao clicar no botão Novo
     private void buttonNovoClick() {
         clearInputs();
         rowClicked = -1;
     }
 
+    // Método que é chamado ao clicar no botão Editar
     private void buttonEditarClick() {
         if (rowClicked < 0 || rowClicked >= pecas.size())
             return;
@@ -162,6 +176,7 @@ public class AplicacaoUI {
         textAreaDescricao.setText(pecaClicked.getDescricao());
     }
 
+    // Método que é chamado ao clicar no botão Excluir
     private void buttonExcluirClick() {
         if (rowClicked < 0 || rowClicked >= pecas.size())
             return;
@@ -171,8 +186,10 @@ public class AplicacaoUI {
         rowClicked = -1;
         textFieldCodigo.setText(String.valueOf(pecas.size()));
         labelTotalPrice.setText("R$ " + getTotalOfPecas());
+        clearInputs();
     }
 
+    // Limpa (deixa vazio) todos os inputs da tela e deixa algumas coisa em default
     private void clearInputs() {
         textFieldCodigo.setText(String.valueOf(pecas.size()));
         textFieldNome.setText("");
@@ -183,10 +200,12 @@ public class AplicacaoUI {
         textAreaDescricao.setText("");
     }
 
+    // Método que é chamado ao clicar em alguma coluna da tabela
     private void tableCollumnClicked(MouseEvent e) {
         rowClicked = tablePecas.rowAtPoint(e.getPoint());
     }
 
+    // Método para mudar os valores na tabela a partir da Lista de Peças
     private void changeTableData() {
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Código", "Nome", "Marca", "Estoque", "Valor", "Tipo", "Descrição"}, 0);
 
@@ -208,10 +227,12 @@ public class AplicacaoUI {
         tablePecas.setModel(model);
     }
 
+    // Retorna o valor total da Lista de Peças
     private float getTotalOfPecas() {
         return (float) pecas.stream().mapToDouble(p -> p.getValor() * p.getEstoque()).sum();
     }
 
+    // Cria uma nova tela "DetalhesUI" e faz as devidas modificações
     private void viewDescricaoPeca(Peca peca) {
         DescricaoUI descricaoUI = new DescricaoUI(peca);
         JPanel rootDescricaoUI = descricaoUI.getRootPanel();
@@ -224,6 +245,7 @@ public class AplicacaoUI {
         frame.setVisible(true);
     }
 
+    // Verifica se a peça a ser salva é válida
     private boolean isPecaValid(Peca peca) {
         if (peca.getNome().trim().isEmpty() ||
         peca.getMarca().trim().isEmpty() ||

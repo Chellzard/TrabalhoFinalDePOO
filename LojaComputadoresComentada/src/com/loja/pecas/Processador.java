@@ -4,6 +4,7 @@ import com.loja.Peca;
 import com.loja.TipoPeca;
 import org.omg.CORBA.TIMEOUT;
 
+// Objeto Processador. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class Processador extends Peca {
     private float velocidade;
     private int cores;

@@ -1,12 +1,13 @@
 package com.loja;
 
+// Objeto Peca. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class Peca {
     private String nome;
     private String marca;
     private int estoque;
     private float valor;
     private TipoPeca tipoPeca;
-    private String descricao;           // Apenas para uso na inferface. No trabalho sem interface esse campo não é usado, no lugar é usado as classes de Tipos de Peças Específicos
+    private String descricao;     // Apenas para uso na inferface. No trabalho sem interface esse campo não é usado, no lugar é usado as classes de Tipos de Peças Específicos
 
     public Peca() {};
 

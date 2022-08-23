@@ -4,6 +4,7 @@ import com.loja.Peca;
 import com.loja.TipoPeca;
 import com.loja.pecas.TipoHd;
 
+// Objeto Hd. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class Hd extends Peca {
     private int armazenamento;
     private int velocidade;

@@ -8,7 +8,14 @@ import com.loja.pecas.*;
 
 import javax.swing.*;
 
+// Classe principal do programa
 public class Aplicacao {
+    /* Método principal (main). Aqui se chama o método createGUI()
+        O SwingUtilities.invokeLater tem que ser utilizado pois faz parte de como o Swing (ferramenta do java para trabalhar com GUIs) funciona
+        Ele faz todo o código ser executado em uma thread específica para fazer os eventos funcionarem
+        OBS: O código que está comentado é o trabalho sem a utilização de interface. Para tal, é necessário descomentar e comentar o
+        SwingUtilities.invokeLater.
+    */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -17,7 +24,11 @@ public class Aplicacao {
             }
         });
 
-        /*Scanner scanner = new Scanner(System.in);
+        /* Mostra um MENU por meio de CLI e pede o usuário para escolher opções, como alterar, salvar, excluir a peça, etc
+            Dentro de cada case do switch é uma opção que o usuário escolheu. Ai são feitas as devidas manipulações para o processo funcionar
+        */
+        /*
+        Scanner scanner = new Scanner(System.in);
 
         List<Peca> pecas = new ArrayList<Peca>();
         int op = 0, numPeca;
@@ -100,9 +111,11 @@ public class Aplicacao {
             System.out.println("Erro: " + e.getMessage());
         }
 
-        System.out.println("Programa finalizado com sucesso!");*/
+        System.out.println("Programa finalizado com sucesso!");
+        */
     }
 
+    // Cria a interface principal e faz as alterações necessárias, como o tamanho mínimo da tela, para fechar ao clicar no X, etc
     private static void createGUI() {
         AplicacaoUI aplicacaoUI = new AplicacaoUI();
         JPanel rootAplicacaoUI = aplicacaoUI.getRootPanel();
@@ -111,10 +124,11 @@ public class Aplicacao {
         frame.setContentPane(rootAplicacaoUI);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(900,600));
+        frame.setMinimumSize(new Dimension(900, 600));
         frame.setVisible(true);
     }
 
+    // Mostra o Menu para o usuário
     private static void mostrarMenu() {
         System.out.println("------------------ MENU ------------------");
         System.out.println("[1] Adicionar Peça");
@@ -126,6 +140,7 @@ public class Aplicacao {
         System.out.println("[7] Sair");
     }
 
+    // Mostra os tipos de peças possíveis para o usuário
     private static void mostrarMenuPecas() {
         int i = 1;
         for (TipoPeca tipoPeca : TipoPeca.values()) {
@@ -134,6 +149,7 @@ public class Aplicacao {
         }
     }
 
+    // Adiciona a peça na lista de peças. Para tal, pede os dados para o usuário digitar
     private static void adicionarPeca(List<Peca> pecas, int tipoPeca) throws Exception {
         try {
             Scanner scanner = new Scanner(System.in);
@@ -303,6 +319,8 @@ public class Aplicacao {
         }
     }
 
+
+    // Remove a peça escolhida da lista de peças
     private static void removerPeca(int num, List<Peca> pecas) throws Exception{
         try {
             pecas.remove(num - 1);
@@ -311,6 +329,7 @@ public class Aplicacao {
         }
     }
 
+    // Altera a peça que foi escolhida e a modifica na lista de peças
     private static void alterarPeca(int num, List<Peca> pecas) {
         Scanner scanner = new Scanner(System.in);
         Peca peca = pecas.get(num - 1);
@@ -553,6 +572,7 @@ public class Aplicacao {
 
     }
 
+    // Verifica se a opção que o usuário escolheu é válida (S para Sim ou N para Não)
     private static String verificaOpcao(String op) {
         Scanner scanner = new Scanner(System.in);
         while (!"S".equals(op) && !"N".equals(op)) {
@@ -562,6 +582,7 @@ public class Aplicacao {
         return op;
     }
 
+    // Mostra todos os dados das peças na lista de peças
     private static void verPecas(List<Peca> pecas) {
         if (pecas.size() == 0)
             System.out.println("Não há nenhuma peça registrada");
@@ -614,6 +635,7 @@ public class Aplicacao {
         }
     }
 
+    // Mostra o total unitário de cada peça na lista de peças (Valor * Estoque)
     private static void totalUnitario(List<Peca> pecas) {
         if (pecas.size() == 0) {
             System.out.println("Não há nenhuma peça");
@@ -627,6 +649,7 @@ public class Aplicacao {
         }
     }
 
+    // Mostra o total geral de todas as peças da lista de peças
     private static void total(List<Peca> pecas) {
         if (pecas.size() == 0) {
             System.out.println("Não há nenhuma peça");

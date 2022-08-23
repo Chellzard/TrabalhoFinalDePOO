@@ -3,6 +3,7 @@ package com.loja.pecas;
 import com.loja.Peca;
 import com.loja.TipoPeca;
 
+// Objeto PlacaMae. Aqui se usa: Herança, Encapsulamento e Sobrecarga
 public class PlacaMae extends Peca {
     private int qtdUsb;
     private int qtdHd;
